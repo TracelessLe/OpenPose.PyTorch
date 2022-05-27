@@ -68,7 +68,7 @@ to process a video file (requires [ffmpeg-python][ffmpeg]).
 
 ### Demo
 #### Skeleton
-
+![body25_model](images/keypoints_pose_25.png)
 ![](images/skeleton.jpg)
 #### Body Pose Estimation
 
@@ -117,3 +117,28 @@ Please cite these papers in your publications if it helps your research (the fac
   year = {2016}
 }
 ```
+
+### References
+
+```
+
+@code{pytorch-openpose,
+  author={Hzzone},
+  year={2021},
+  website={https://github.com/Hzzone/pytorch-openpose.git}
+}
+
+@code{caffemodel2pytorch,
+  author={vadimkantorov},
+  year={2021},
+  website={https://github.com/vadimkantorov/caffemodel2pytorch.git}
+}
+
+@code{pytorch_openpose_body_25,
+  author={beingjoey},
+  year={2022},
+  website={https://github.com/beingjoey/pytorch_openpose_body_25.git}
+}
+
+```
+
