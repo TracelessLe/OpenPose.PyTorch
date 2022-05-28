@@ -38,7 +38,7 @@ Install pytorch by following the quick start guide [here](https://download.pytor
 
 Install other requirements with pip
 
-    ```pip install -r requirements.txt```
+    pip install -r requirements.txt
 
 #### Download the Models
 original `pytorch-openpose` models:
