@@ -1,8 +1,17 @@
-## pytorch-openpose
+## OpenPose.PyTorch
 
-pytorch implementation of [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) including **Body and Hand Pose Estimation**, and the pytorch model is directly converted from [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) caffemodel by [caffemodel2pytorch](https://github.com/vadimkantorov/caffemodel2pytorch). You could implement face keypoint detection in the same way if you are interested in. Pay attention to that the face keypoint detector was trained using the procedure described in [Simon et al. 2017] for hands.
+PyTorch implementation of [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) including **Body and Hand Pose Estimation**, and the PyTorch model is directly converted from [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) caffemodel by [caffemodel2pytorch](https://github.com/vadimkantorov/caffemodel2pytorch). 
+
+For example, export body25 pytorch model `pose_iter_584000.caffemodel.pt` from the caffe model `pose_iter_584000.caffemodel`:
+```
+cd caffemodel2pytorch
+python -m caffemodel2pytorch pose_iter_584000.caffemodel
+```
+
+You could implement face keypoint detection in the same way if you are interested in. Pay attention to that the face keypoint detector was trained using the procedure described in [Simon et al. 2017] for hands.
 
 openpose detects hand by the result of body pose estimation, please refer to the code of [handDetector.cpp](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/src/openpose/hand/handDetector.cpp).
+
 In the paper, it states as:
 ```
 This is an important detail: to use the keypoint detector in any practical situation, 
@@ -12,9 +21,9 @@ and use the wrist and elbow position to approximate the hand location,
 assuming the hand extends 0.15 times the length of the forearm in the same direction.
 ```
 
-If anybody wants a pure python wrapper, please refer to my [pytorch implementation](https://github.com/Hzzone/pytorch-openpose) of openpose, maybe it helps you to implement a standalone hand keypoint detector.
+This repository is based on the pure python wrapper repository of openpose [pytorch implementation](https://github.com/Hzzone/pytorch-openpose) , maybe it helps you to implement a standalone hand keypoint detector.
 
-Don't be mean to star this repo if it helps your research.
+Don't be mean to star this repo and the reference repositories at the end if it helps your research. :)
 
 ### Getting Started
 
@@ -25,19 +34,22 @@ Create a python 3.7 environement, eg:
     conda create -n pytorch-openpose python=3.7
     conda activate pytorch-openpose
 
-Install pytorch by following the quick start guide here (use pip) https://download.pytorch.org/whl/torch_stable.html
+Install pytorch by following the quick start guide [here](https://download.pytorch.org/whl/torch_stable.html) (use pip) 
 
 Install other requirements with pip
 
-    pip install -r requirements.txt
+    ```pip install -r requirements.txt```
 
 #### Download the Models
-
+original `pytorch-openpose` models:
 * [dropbox](https://www.dropbox.com/sh/7xbup2qsn7vvjxo/AABWFksdlgOMXR_r5v3RwKRYa?dl=0)
 * [baiduyun](https://pan.baidu.com/s/1IlkvuSi0ocNckwbnUe7j-g)
 * [google drive](https://drive.google.com/drive/folders/1JsvI4M4ZTg98fmnCZLFM-3TeovnCRElG?usp=sharing)
 
-`*.pth` files are pytorch model, you could also download caffemodel file if you want to use caffe as backend.
+body25 models:
+* [google drive](https://drive.google.com/drive/folders/1y1zBkk4PS8YsZgMP4zAjvaFzFoskzXEf?usp=sharing)
+
+`*.pth` and `*.pt` files are pytorch model, you could also download caffemodel file if you want to use caffe as backend.
 
 Download the pytorch models and put them in a directory named `model` in the project root directory
 
@@ -68,7 +80,9 @@ to process a video file (requires [ffmpeg-python][ffmpeg]).
 
 ### Demo
 #### Skeleton
-![body25_model](images/keypoints_pose_25.png)
+`body25_model`
+![](images/keypoints_pose_25.png)
+`body_coco_model` and `hand`
 ![](images/skeleton.jpg)
 #### Body Pose Estimation
 
@@ -78,7 +92,10 @@ to process a video file (requires [ffmpeg-python][ffmpeg]).
 ![](images/hand_preview.png)
 
 #### Body + Hand
-![](images/demo_preview.png)
+body_coco_model + hand_model
+![](result_demo_coco.png)
+body25_model + hand_model
+![](result_demo_body25.png)
 
 #### Video Body
 
@@ -138,6 +155,12 @@ Please cite these papers in your publications if it helps your research (the fac
   author={beingjoey},
   year={2022},
   website={https://github.com/beingjoey/pytorch_openpose_body_25.git}
+}
+
+@code{openpose,
+  author={CMU-Perceptual-Computing-Lab},
+  year={2022},
+  website={https://github.com/CMU-Perceptual-Computing-Lab/openpose.git}
 }
 
 ```
