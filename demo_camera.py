@@ -9,7 +9,12 @@ from src import util
 from src.body import Body
 from src.hand import Hand
 
-body_estimation = Body('model/body_pose_model.pth')
+model_type = 'body25'  # 'coco'  #  
+if model_type=='body25':
+    model_path = './model/pose_iter_584000.caffemodel.pt'
+else:
+    model_path = './model/body_pose_model.pth'
+body_estimation = Body(model_path, model_type)
 hand_estimation = Hand('model/hand_pose_model.pth')
 
 print(f"Torch device: {torch.cuda.get_device_name()}")
@@ -21,7 +26,7 @@ while True:
     ret, oriImg = cap.read()
     candidate, subset = body_estimation(oriImg)
     canvas = copy.deepcopy(oriImg)
-    canvas = util.draw_bodypose(canvas, candidate, subset)
+    canvas = util.draw_bodypose(canvas, candidate, subset, model_type)
 
     # detect hand
     hands_list = util.handDetect(candidate, subset, oriImg)

@@ -40,14 +40,19 @@ from src import util
 from src.body import Body
 from src.hand import Hand
 
-body_estimation = Body('model/body_pose_model.pth')
+model_type = 'body25'  # 'coco'  #  
+if model_type=='body25':
+    model_path = './model/pose_iter_584000.caffemodel.pt'
+else:
+    model_path = './model/body_pose_model.pth'
+body_estimation = Body(model_path, model_type)
 hand_estimation = Hand('model/hand_pose_model.pth')
 
 def process_frame(frame, body=True, hands=True):
     canvas = copy.deepcopy(frame)
     if body:
         candidate, subset = body_estimation(frame)
-        canvas = util.draw_bodypose(canvas, candidate, subset)
+        canvas = util.draw_bodypose(canvas, candidate, subset, model_type)
     if hands:
         hands_list = util.handDetect(candidate, subset, frame)
         all_hand_peaks = []

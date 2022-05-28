@@ -1,5 +1,5 @@
 import cv2
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import copy
 import numpy as np
 
@@ -8,14 +8,19 @@ from src import util
 from src.body import Body
 from src.hand import Hand
 
-body_estimation = Body('model/body_pose_model.pth')
+model_type = 'body25'  # 'coco'  #  
+if model_type=='body25':
+    model_path = './model/pose_iter_584000.caffemodel.pt'
+else:
+    model_path = './model/body_pose_model.pth'
+body_estimation = Body(model_path, model_type)
 hand_estimation = Hand('model/hand_pose_model.pth')
 
-test_image = 'images/demo.jpg'
-oriImg = cv2.imread(test_image)  # B,G,R order
+test_image_path = 'demo.jpg'
+oriImg = cv2.imread(test_image_path)  # B,G,R order
 candidate, subset = body_estimation(oriImg)
 canvas = copy.deepcopy(oriImg)
-canvas = util.draw_bodypose(canvas, candidate, subset)
+canvas = util.draw_bodypose(canvas, candidate, subset, model_type)
 # detect hand
 hands_list = util.handDetect(candidate, subset, oriImg)
 
@@ -39,6 +44,8 @@ for x, y, w, is_left in hands_list:
 
 canvas = util.draw_handpose(canvas, all_hand_peaks)
 
-plt.imshow(canvas[:, :, [2, 1, 0]])
-plt.axis('off')
-plt.show()
+# plt.imshow(canvas[:, :, [2, 1, 0]])
+# plt.axis('off')
+# plt.show()
+result_name = 'result_'+test_image_path.split('.')[0]+'_'+model_type+'.png'
+cv2.imwrite(result_name, canvas)
