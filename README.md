@@ -92,9 +92,13 @@ to process a video file (requires [ffmpeg-python][ffmpeg]).
 ![](images/hand_preview.png)
 
 #### Body + Hand
-body_coco_model + hand_model
+
+body_coco_model + hand_model:
+
 ![](result_demo_coco.png)
-body25_model + hand_model
+
+body25_model + hand_model:
+
 ![](result_demo_body25.png)
 
 #### Video Body
