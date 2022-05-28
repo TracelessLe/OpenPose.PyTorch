@@ -52,9 +52,9 @@ def draw_bodypose(canvas, candidate, subset, model_type='coco'):
                 [11,24],[11,22],[14,21],[14,19],[22,23],[19,20]]
         njoint = 25
     else:
-        limbSeq = [[2, 3], [2, 6], [3, 4], [4, 5], [6, 7], [7, 8], [2, 9], [9, 10], \
-                [10, 11], [2, 12], [12, 13], [13, 14], [2, 1], [1, 15], [15, 17], \
-                [1, 16], [16, 18], [3, 17], [6, 18]]
+        limbSeq = [[1, 2], [1, 5], [2, 3], [3, 4], [5, 6], [6, 7], [1, 8], [8, 9], \
+                    [9, 10], [1, 11], [11, 12], [12, 13], [1, 0], [0, 14], [14, 16], \
+                    [0, 15], [15, 17], [2, 16], [5, 17]]
         njoint = 18
 
     # colors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [170, 255, 0], [85, 255, 0], [0, 255, 0], \
@@ -75,10 +75,7 @@ def draw_bodypose(canvas, candidate, subset, model_type='coco'):
             cv2.circle(canvas, (int(x), int(y)), 4, colors[i], thickness=-1)
     for i in range(njoint-1):
         for n in range(len(subset)):
-            if model_type == 'body25':
-                index = subset[n][np.array(limbSeq[i])]
-            else:
-                index = subset[n][np.array(limbSeq[i]) - 1]
+            index = subset[n][np.array(limbSeq[i])]
             if -1 in index:
                 continue
             cur_canvas = canvas.copy()

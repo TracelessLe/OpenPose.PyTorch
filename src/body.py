@@ -115,27 +115,22 @@ class Body(object):
                     [50,51],[46,47],[44,45],[40,41],[48,49],[42,43]]
         else:
             # find connection in the specified sequence, center 29 is in the position 15
-            limbSeq = [[2, 3], [2, 6], [3, 4], [4, 5], [6, 7], [7, 8], [2, 9], [9, 10], \
-                    [10, 11], [2, 12], [12, 13], [13, 14], [2, 1], [1, 15], [15, 17], \
-                    [1, 16], [16, 18], [3, 17], [6, 18]]
+            limbSeq = [[1, 2], [1, 5], [2, 3], [3, 4], [5, 6], [6, 7], [1, 8], [8, 9], \
+                    [9, 10], [1, 11], [11, 12], [12, 13], [1, 0], [0, 14], [14, 16], \
+                    [0, 15], [15, 17], [2, 16], [5, 17]]
             # the middle joints heatmap correpondence
-            mapIdx = [[31, 32], [39, 40], [33, 34], [35, 36], [41, 42], [43, 44], [19, 20], [21, 22], \
-                    [23, 24], [25, 26], [27, 28], [29, 30], [47, 48], [49, 50], [53, 54], [51, 52], \
-                    [55, 56], [37, 38], [45, 46]]
+            mapIdx = [[12, 13], [20, 21], [14, 15], [16, 17], [22, 23], [24, 25], [0, 1], [2, 3], \
+                    [4, 5], [6, 7], [8, 9], [10, 11], [28, 29], [30, 31], [34, 35], [32, 33], \
+                    [36, 37], [18, 19], [26, 27]]
 
         connection_all = []
         special_k = []
         mid_num = 10
 
         for k in range(len(mapIdx)):
-            if self.model_type=='body25':
-                score_mid = paf_avg[:, :, mapIdx[k]]
-                candA = all_peaks[limbSeq[k][0]]
-                candB = all_peaks[limbSeq[k][1]]
-            else:
-                score_mid = paf_avg[:, :, [x - 19 for x in mapIdx[k]]]
-                candA = all_peaks[limbSeq[k][0] - 1]
-                candB = all_peaks[limbSeq[k][1] - 1]      
+            score_mid = paf_avg[:, :, mapIdx[k]]
+            candA = all_peaks[limbSeq[k][0]]
+            candB = all_peaks[limbSeq[k][1]]  
             
             nA = len(candA)
             nB = len(candB)
@@ -189,10 +184,7 @@ class Body(object):
             if k not in special_k:
                 partAs = connection_all[k][:, 0]
                 partBs = connection_all[k][:, 1]
-                if self.model_type=='body25':
-                    indexA, indexB = np.array(limbSeq[k])
-                else:
-                    indexA, indexB = np.array(limbSeq[k]) - 1
+                indexA, indexB = np.array(limbSeq[k])
 
                 for i in range(len(connection_all[k])):  # = 1:size(temp,1)
                     found = 0
