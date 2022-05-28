@@ -169,3 +169,5 @@ Please cite these papers in your publications if it helps your research (the fac
 
 ```
 
+### License
+All the pytorch models used in this repo are converted from [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) released caffe models. OpenPose.PyTorch is freely available for free non-commercial use, and may be redistributed under some conditions, which is same as [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/README.md#license). Please see the license of [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/LICENSE) for further details.
